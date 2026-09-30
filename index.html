@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Cortilow – Setup & Payment</title>
+  <title>Cortilow – Setup, Payment, Onboarding & Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
@@ -105,12 +105,17 @@
       font-size: 0.9rem;
       margin-top: 0.75rem;
     }
+    ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Cortilow Setup</h1>
-    <p>Stress‑aware assistant – Phase 1 & Phase 2 MVP</p>
+    <p>Stress‑aware assistant – Phase 1–4 MVP</p>
   </header>
 
   <main>
@@ -215,6 +220,47 @@
       <button id="complete-btn">Finish Cortilow Setup</button>
       <p id="complete-error" class="error" style="display:none;"></p>
       <p id="complete-success" class="success" style="display:none;"></p>
+    </section>
+
+    <!-- 7. Phase 3 – Download & Onboarding -->
+    <section id="onboarding-section">
+      <h2>7. Download & onboarding</h2>
+      <p class="subtext">After setup, follow these steps based on your device and wearable.</p>
+
+      <h3>iPhone + Apple Watch</h3>
+      <ul>
+        <li>Download the Cortilow iOS app (placeholder link).</li>
+        <li>Enable Health access for heart rate and HRV.</li>
+        <li>Turn on background updates on Apple Watch.</li>
+      </ul>
+
+      <h3>Android + Fitbit</h3>
+      <ul>
+        <li>Download the Cortilow Android app (placeholder link).</li>
+        <li>Connect your Fitbit account via OAuth.</li>
+        <li>Allow access to HR, HRV, and (optional) EDA.</li>
+      </ul>
+
+      <p class="subtext">For now, these are instructions only – downloads will be added when the apps are built.</p>
+    </section>
+
+    <!-- 8. Phase 4 – Dashboard & Stress Engine -->
+    <section id="dashboard-section">
+      <h2>8. Cortilow dashboard & stress engine</h2>
+      <p class="subtext">
+        This section represents the future dashboard where you’ll see stress scores, alerts, and breathing sessions.
+      </p>
+
+      <h3>Demo: Run the stress engine</h3>
+      <ul>
+        <li>Open your Colab notebook (where you pasted the Python engine).</li>
+        <li>Run the simulation to see HR, HRV, and stress scores over time.</li>
+        <li>Later, this will connect live to your wearable and show real‑time data here.</li>
+      </ul>
+
+      <p class="subtext">
+        In a real deployment, this dashboard would be backed by a server (e.g., FastAPI/Flask) and a database (e.g., Supabase/Firebase).
+      </p>
     </section>
   </main>
 
@@ -331,7 +377,7 @@
       console.log('Cortilow setup summary:', summary);
 
       completeSuccess.textContent =
-        'Cortilow Phase 1 + Phase 2 setup complete (demo). You can now connect your wearable and run the stress engine.';
+        'Cortilow Phase 1–4 setup complete (demo). Next: follow the onboarding steps below and run the stress engine.';
       completeSuccess.style.display = 'block';
     });
   </script>
