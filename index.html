@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Cortilow – Setup</title>
+  <title>Cortilow – Setup & Payment</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
@@ -110,7 +110,7 @@
 <body>
   <header>
     <h1>Cortilow Setup</h1>
-    <p>Stress‑aware assistant – Phase 1 MVP</p>
+    <p>Stress‑aware assistant – Phase 1 & Phase 2 MVP</p>
   </header>
 
   <main>
@@ -173,9 +173,45 @@
       <p id="fee-error" class="error" style="display:none;"></p>
     </section>
 
-    <!-- 5. Complete setup -->
+    <!-- 5. Payment Section (Phase 2) -->
+    <section id="payment-section">
+      <h2>5. Choose your payment method</h2>
+      <p class="subtext">Cortilow Phase 1 MVP is <strong>$0</strong>, but choose a payment method for future billing.</p>
+
+      <div class="options">
+        <label><input type="radio" name="payment" value="paypal" /> PayPal</label>
+        <label><input type="radio" name="payment" value="card" /> Credit / Debit Card</label>
+        <label><input type="radio" name="payment" value="bank" /> Bank (Stripe)</label>
+      </div>
+
+      <p id="payment-error" class="error" style="display:none;"></p>
+
+      <!-- PayPal mock -->
+      <div id="paypal-box" style="display:none; margin-top:1rem;">
+        <h3>PayPal Account</h3>
+        <input type="email" id="paypal-email" placeholder="PayPal email" />
+      </div>
+
+      <!-- Card mock -->
+      <div id="card-box" style="display:none; margin-top:1rem;">
+        <h3>Card Details</h3>
+        <input type="text" id="card-number" placeholder="Card Number (#### #### #### ####)" />
+        <input type="text" id="card-exp" placeholder="MM/YY" />
+        <input type="text" id="card-cvc" placeholder="CVC" />
+      </div>
+
+      <!-- Bank mock -->
+      <div id="bank-box" style="display:none; margin-top:1rem;">
+        <h3>Bank Account</h3>
+        <input type="text" id="bank-name" placeholder="Bank Name" />
+        <input type="text" id="bank-routing" placeholder="Routing Number" />
+        <input type="text" id="bank-account" placeholder="Account Number" />
+      </div>
+    </section>
+
+    <!-- 6. Complete setup -->
     <section id="complete-section">
-      <h2>5. Complete setup</h2>
+      <h2>6. Complete setup</h2>
       <button id="complete-btn">Finish Cortilow Setup</button>
       <p id="complete-error" class="error" style="display:none;"></p>
       <p id="complete-success" class="success" style="display:none;"></p>
@@ -183,6 +219,7 @@
   </main>
 
   <script>
+    // Signup
     const signupBtn = document.getElementById('signup-btn');
     const signupMsg = document.getElementById('signup-msg');
     const signupSuccess = document.getElementById('signup-success');
@@ -204,6 +241,27 @@
       signupSuccess.style.display = 'block';
     });
 
+    // Payment method UI
+    const paymentRadios = document.querySelectorAll('input[name="payment"]');
+    const paymentError = document.getElementById('payment-error');
+
+    const paypalBox = document.getElementById('paypal-box');
+    const cardBox = document.getElementById('card-box');
+    const bankBox = document.getElementById('bank-box');
+
+    paymentRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        paypalBox.style.display = 'none';
+        cardBox.style.display = 'none';
+        bankBox.style.display = 'none';
+
+        if (radio.value === 'paypal') paypalBox.style.display = 'block';
+        if (radio.value === 'card') cardBox.style.display = 'block';
+        if (radio.value === 'bank') bankBox.style.display = 'block';
+      });
+    });
+
+    // Complete setup
     const completeBtn = document.getElementById('complete-btn');
     const deviceError = document.getElementById('device-error');
     const wearableError = document.getElementById('wearable-error');
@@ -215,6 +273,7 @@
       const device = document.querySelector('input[name="device"]:checked');
       const wearable = document.querySelector('input[name="wearable"]:checked');
       const feePayer = document.getElementById('fee-payer').value;
+      const payment = document.querySelector('input[name="payment"]:checked');
 
       let hasError = false;
 
@@ -242,6 +301,14 @@
         feeError.style.display = 'none';
       }
 
+      if (!payment) {
+        paymentError.textContent = 'Please choose a payment method.';
+        paymentError.style.display = 'block';
+        hasError = true;
+      } else {
+        paymentError.style.display = 'none';
+      }
+
       if (hasError) {
         completeError.textContent = 'Fix the issues above before finishing setup.';
         completeError.style.display = 'block';
@@ -252,19 +319,21 @@
       completeError.style.display = 'none';
 
       const summary = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
         device: device.value,
         wearable: wearable.value,
         feePayer: feePayer,
+        paymentMethod: payment.value,
         price: 0
       };
 
       console.log('Cortilow setup summary:', summary);
 
       completeSuccess.textContent =
-        'Cortilow Phase 1 setup complete. (Demo) You can now connect your wearable and run the stress engine.';
+        'Cortilow Phase 1 + Phase 2 setup complete (demo). You can now connect your wearable and run the stress engine.';
       completeSuccess.style.display = 'block';
     });
   </script>
 </body>
 </html>
-
