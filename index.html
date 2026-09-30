@@ -1,1 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cortilow – Setup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+    header {
+      padding: 1.5rem 2rem;
+      background: #020617;
+      border-bottom: 1px solid #1f2937;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+    header p {
+      margin: 0.25rem 0 0;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem 3rem;
+    }
+    section {
+      background: #020617;
+      border: 1px solid #1f2937;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    section h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+    label {
+      display: block;
+      margin: 0.5rem 0 0.25rem;
+      font-size: 0.95rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.95rem;
+    }
+    input::placeholder {
+      color: #6b7280;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin-top: 0.5rem;
+    }
+    .options label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: #22c55e;
+      color: #022c22;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #16a34a;
+    }
+    .subtext {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-top: 0.25rem;
+    }
+    .error {
+      color: #f97373;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    .success {
+      color: #4ade80;
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cortilow Setup</h1>
+    <p>Stress‑aware assistant – Phase 1 MVP</p>
+  </header>
+
+  <main>
+    <!-- 1. Sign Up -->
+    <section id="signup-section">
+      <h2>1. Create your Cortilow account</h2>
+      <label for="name">Name</label>
+      <input id="name" type="text" placeholder="Your name" />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@example.com" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Choose a password" />
+
+      <button id="signup-btn">Sign Up</button>
+      <p class="subtext">For now, this is just a demo signup – no real backend.</p>
+      <p id="signup-msg" class="error" style="display:none;"></p>
+      <p id="signup-success" class="success" style="display:none;"></p>
+    </section>
+
+    <!-- 2. Device selection -->
+    <section id="device-section">
+      <h2>2. Select your device</h2>
+      <p class="subtext">Choose where you’ll run Cortilow.</p>
+
+      <div class="options">
+        <label><input type="radio" name="device" value="iphone" /> iPhone</label>
+        <label><input type="radio" name="device" value="android" /> Android phone</label>
+        <label><input type="radio" name="device" value="mac" /> MacBook</label>
+        <label><input type="radio" name="device" value="windows" /> Windows laptop</label>
+      </div>
+
+      <p id="device-error" class="error" style="display:none;"></p>
+    </section>
+
+    <!-- 3. Wearable selection -->
+    <section id="wearable-section">
+      <h2>3. Select your wearable</h2>
+      <p class="subtext">Cortilow uses your wearable for stress signals.</p>
+
+      <div class="options">
+        <label><input type="radio" name="wearable" value="apple_watch" /> Apple Watch</label>
+        <label><input type="radio" name="wearable" value="fitbit" /> Fitbit</label>
+      </div>
+
+      <p id="wearable-error" class="error" style="display:none;"></p>
+    </section>
+
+    <!-- 4. Fee payer ($0 for now) -->
+    <section id="fee-section">
+      <h2>4. Fee payer & pricing</h2>
+      <label for="fee-payer">Who will pay for Cortilow?</label>
+      <select id="fee-payer">
+        <option value="">Select fee payer</option>
+        <option value="parent">Parent / Guardian</option>
+        <option value="self">Myself</option>
+      </select>
+      <p class="subtext">For Phase 1 MVP, the price is set to <strong>$0</strong>.</p>
+      <p id="fee-error" class="error" style="display:none;"></p>
+    </section>
+
+    <!-- 5. Complete setup -->
+    <section id="complete-section">
+      <h2>5. Complete setup</h2>
+      <button id="complete-btn">Finish Cortilow Setup</button>
+      <p id="complete-error" class="error" style="display:none;"></p>
+      <p id="complete-success" class="success" style="display:none;"></p>
+    </section>
+  </main>
+
+  <script>
+    const signupBtn = document.getElementById('signup-btn');
+    const signupMsg = document.getElementById('signup-msg');
+    const signupSuccess = document.getElementById('signup-success');
+
+    signupBtn.addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!name || !email || !password) {
+        signupMsg.textContent = 'Please fill in name, email, and password.';
+        signupMsg.style.display = 'block';
+        signupSuccess.style.display = 'none';
+        return;
+      }
+
+      signupMsg.style.display = 'none';
+      signupSuccess.textContent = 'Signup saved locally for demo. You can continue below.';
+      signupSuccess.style.display = 'block';
+    });
+
+    const completeBtn = document.getElementById('complete-btn');
+    const deviceError = document.getElementById('device-error');
+    const wearableError = document.getElementById('wearable-error');
+    const feeError = document.getElementById('fee-error');
+    const completeError = document.getElementById('complete-error');
+    const completeSuccess = document.getElementById('complete-success');
+
+    completeBtn.addEventListener('click', () => {
+      const device = document.querySelector('input[name="device"]:checked');
+      const wearable = document.querySelector('input[name="wearable"]:checked');
+      const feePayer = document.getElementById('fee-payer').value;
+
+      let hasError = false;
+
+      if (!device) {
+        deviceError.textContent = 'Please select a device.';
+        deviceError.style.display = 'block';
+        hasError = true;
+      } else {
+        deviceError.style.display = 'none';
+      }
+
+      if (!wearable) {
+        wearableError.textContent = 'Please select a wearable.';
+        wearableError.style.display = 'block';
+        hasError = true;
+      } else {
+        wearableError.style.display = 'none';
+      }
+
+      if (!feePayer) {
+        feeError.textContent = 'Please choose who will pay (even though it is $0).';
+        feeError.style.display = 'block';
+        hasError = true;
+      } else {
+        feeError.style.display = 'none';
+      }
+
+      if (hasError) {
+        completeError.textContent = 'Fix the issues above before finishing setup.';
+        completeError.style.display = 'block';
+        completeSuccess.style.display = 'none';
+        return;
+      }
+
+      completeError.style.display = 'none';
+
+      const summary = {
+        device: device.value,
+        wearable: wearable.value,
+        feePayer: feePayer,
+        price: 0
+      };
+
+      console.log('Cortilow setup summary:', summary);
+
+      completeSuccess.textContent =
+        'Cortilow Phase 1 setup complete. (Demo) You can now connect your wearable and run the stress engine.';
+      completeSuccess.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
 
