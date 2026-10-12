@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cortilow Login</title>
+  <link rel="stylesheet" href="style.css"> <!-- optional -->
+</head>
+<body>
+  <h2>Login to Cortilow</h2>
+
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("https://cortilow-backend.onrender.com/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const result = await response.json();
+        document.getElementById("message").textContent = result.message;
+
+        if (result.success) {
+          window.location.href = "dashboard.html"; // redirect after login
+        }
+      } catch (error) {
+        document.getElementById("message").textContent = "Error connecting to server.";
+      }
+    });
+  </script>
+</body>
+</html>
