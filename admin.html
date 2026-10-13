@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cortilow Admin Panel</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #countBox {
+      background: #0078d7;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #0078d7;
+      color: white;
+    }
+
+    tr:hover {
+      background: #f1f1f1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Cortilow Admin Panel</h1>
+
+  <div id="countBox">Loading response count...</div>
+
+  <table id="responsesTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>$150 Payment</th>
+        <th>Useful?</th>
+        <th>Want Product?</th>
+        <th>Frequency</th>
+        <th>Feature</th>
+        <th>Track Stress?</th>
+        <th>Recommend?</th>
+        <th>Preferred Price</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    async function loadAdminData() {
+      const countBox = document.getElementById("countBox");
+      const tableBody = document.querySelector("#responsesTable tbody");
+
+      try {
+        // Fetch full list of survey responses
+        const res = await fetch("https://cortilow.onrender.com/pre-signup/list");
+        const data = await res.json();
+
+        // Show count
+        countBox.textContent = `Total Responses: ${data.length}`;
+
+        // Add rows to table
+        data.forEach(entry => {
+          const row = document.createElement("tr");
+
+          row.innerHTML = `
+            <td>${entry.date || "N/A"}</td>
+            <td>${entry.firstPayment || "N/A"}</td>
+            <td>${entry.useful || "N/A"}</td>
+            <td>${entry.wantProduct || "N/A"}</td>
+            <td>${entry.frequency || "N/A"}</td>
+            <td>${entry.feature || "N/A"}</td>
+            <td>${entry.trackStress || "N/A"}</td>
+            <td>${entry.recommend || "N/A"}</td>
+            <td>${entry.preferredPrice || "N/A"}</td>
+          `;
+
+          tableBody.appendChild(row);
+        });
+
+      } catch (err) {
+        countBox.textContent = "Error loading data.";
+      }
+    }
+
+    loadAdminData();
+  </script>
+
+</body>
+</html>
