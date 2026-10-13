@@ -70,7 +70,7 @@
   <form id="surveyForm">
     <h2>Cortilow Product Survey</h2>
 
-    <!-- Original Questions -->
+    <!-- Q1 -->
     <label>Are you willing to pay $150 for your first cortisol measurement?</label>
     <select id="firstPayment" required>
       <option value="">Select one</option>
@@ -79,14 +79,9 @@
       <option value="maybe">Maybe</option>
     </select>
 
-    <label>Which plan would you choose?</label>
-    <select id="planChoice" required>
-      <option value="">Select one</option>
-      <option value="basic">$5/month Basic Version</option>
-      <option value="pro">Pro Version</option>
-      <option value="none">I would not subscribe</option>
-    </select>
+    <!-- Q2 (removed planChoice) -->
 
+    <!-- Q3 -->
     <label>Do you find the product useful?</label>
     <select id="useful" required>
       <option value="">Select one</option>
@@ -95,6 +90,7 @@
       <option value="unsure">Not sure yet</option>
     </select>
 
+    <!-- Q4 -->
     <label>Do you want the product?</label>
     <select id="wantProduct" required>
       <option value="">Select one</option>
@@ -158,7 +154,6 @@
 
       const data = {
         firstPayment: document.getElementById("firstPayment").value,
-        planChoice: document.getElementById("planChoice").value,
         useful: document.getElementById("useful").value,
         wantProduct: document.getElementById("wantProduct").value,
         frequency: document.getElementById("frequency").value,
