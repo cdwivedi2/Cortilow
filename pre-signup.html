@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cortilow Pre‑Signup</title>
+  <title>Cortilow Product Survey</title>
 
   <style>
     body {
@@ -12,24 +12,31 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
 
     form {
       background: white;
       padding: 25px;
       border-radius: 10px;
-      width: 320px;
+      width: 350px;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
-    input, button {
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    select, button {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
@@ -60,33 +67,112 @@
 
 <body>
 
-  <form id="preSignupForm">
-    <h2>Join the Cortilow Waitlist</h2>
+  <form id="surveyForm">
+    <h2>Cortilow Product Survey</h2>
 
-    <input type="text" id="name" placeholder="Full Name" required>
-    <input type="email" id="email" placeholder="Email Address" required>
-    <input type="text" id="interest" placeholder="What interests you?" required>
+    <!-- Original Questions -->
+    <label>Are you willing to pay $150 for your first cortisol measurement?</label>
+    <select id="firstPayment" required>
+      <option value="">Select one</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="maybe">Maybe</option>
+    </select>
 
-    <button type="submit">Join Waitlist</button>
+    <label>Which plan would you choose?</label>
+    <select id="planChoice" required>
+      <option value="">Select one</option>
+      <option value="basic">$5/month Basic Version</option>
+      <option value="pro">Pro Version</option>
+      <option value="none">I would not subscribe</option>
+    </select>
+
+    <label>Do you find the product useful?</label>
+    <select id="useful" required>
+      <option value="">Select one</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="unsure">Not sure yet</option>
+    </select>
+
+    <label>Do you want the product?</label>
+    <select id="wantProduct" required>
+      <option value="">Select one</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="maybe">Maybe</option>
+    </select>
+
+    <!-- NEW 5 QUESTIONS -->
+    <label>How often would you check your cortisol levels?</label>
+    <select id="frequency" required>
+      <option value="">Select one</option>
+      <option value="weekly">Weekly</option>
+      <option value="monthly">Monthly</option>
+      <option value="quarterly">Every 3 months</option>
+      <option value="rarely">Rarely</option>
+    </select>
+
+    <label>What feature matters most to you?</label>
+    <select id="feature" required>
+      <option value="">Select one</option>
+      <option value="accuracy">High accuracy</option>
+      <option value="price">Low cost</option>
+      <option value="speed">Fast results</option>
+      <option value="app">Great mobile app</option>
+    </select>
+
+    <label>Would you use Cortilow to track stress over time?</label>
+    <select id="trackStress" required>
+      <option value="">Select one</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="maybe">Maybe</option>
+    </select>
+
+    <label>How likely are you to recommend Cortilow?</label>
+    <select id="recommend" required>
+      <option value="">Select one</option>
+      <option value="very">Very likely</option>
+      <option value="somewhat">Somewhat likely</option>
+      <option value="not">Not likely</option>
+    </select>
+
+    <label>What price would you prefer for monthly monitoring?</label>
+    <select id="preferredPrice" required>
+      <option value="">Select one</option>
+      <option value="5">$5/month</option>
+      <option value="10">$10/month</option>
+      <option value="15">$15/month</option>
+      <option value="none">I would not pay monthly</option>
+    </select>
+
+    <button type="submit">Submit Survey</button>
 
     <div id="message"></div>
   </form>
 
   <script>
-    document.getElementById("preSignupForm").addEventListener("submit", async (e) => {
+    document.getElementById("surveyForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const data = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        interest: document.getElementById("interest").value
+        firstPayment: document.getElementById("firstPayment").value,
+        planChoice: document.getElementById("planChoice").value,
+        useful: document.getElementById("useful").value,
+        wantProduct: document.getElementById("wantProduct").value,
+        frequency: document.getElementById("frequency").value,
+        feature: document.getElementById("feature").value,
+        trackStress: document.getElementById("trackStress").value,
+        recommend: document.getElementById("recommend").value,
+        preferredPrice: document.getElementById("preferredPrice").value
       };
 
       const messageBox = document.getElementById("message");
       messageBox.textContent = "Submitting...";
 
       try {
-        const response = await fetch("https://cortilow.onrender.com/pre-signup", {
+        const response = await fetch("https://cortilow.onrender.com/product-survey", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data)
@@ -94,7 +180,7 @@
 
         if (response.ok) {
           messageBox.style.color = "green";
-          messageBox.textContent = "Thanks! You're on the waitlist.";
+          messageBox.textContent = "Thanks! Your response has been recorded.";
         } else {
           messageBox.style.color = "red";
           messageBox.textContent = "Something went wrong. Try again.";
